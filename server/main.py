@@ -58,4 +58,21 @@ courses = {
 }
 
 get_plan_a(courses)
+
+
 # API to accept weighted courses (preferences) and provide plan B
+priorities = {
+    "c1" : 10,
+    "c2" : 100,
+    "c3" : 20,
+    "c4" : 50,
+    "c5" : 60,
+    "c6" : 80,
+    "c7" : 30,
+    "c8" : 90,
+    "c9" : 20,
+    "c10" : 30,
+    "c11" : 40,
+}
+
+get_plan_b(courses, priorities=priorities)
