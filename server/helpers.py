@@ -131,8 +131,8 @@ def eligibility(selected,prerequisite,completed):
 
         
 
-s,p,c=load_files("sample.txt")
-print(eligibility(s,p,c))
+# s,p,c=load_files("sample.txt")
+# print(eligibility(s,p,c))
 
 
     
