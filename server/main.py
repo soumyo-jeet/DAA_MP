@@ -1,9 +1,36 @@
+import os
+
 from flask import Flask, request, jsonify
 from logics import *
 from helpers import *
 
 app = Flask(__name__)
+
 # API to accept a.txt from user
+@app.route('/upload', methods=['POST'])
+def upload_dataset():
+    if 'file' not in request.files:
+        return jsonify({'error': 'No file uploaded.'}), 400
+
+    uploaded_file = request.files['file']
+
+    if uploaded_file.filename == '':
+        return jsonify({'error': 'No selected file.'}), 400
+
+    if not uploaded_file.filename.lower().endswith('.txt'):
+        return jsonify({'error': 'Only .txt files are allowed.'}), 400
+
+    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    save_path = os.path.join(project_root, 'sample.txt')
+
+    uploaded_file.save(save_path)
+
+    return jsonify({
+        'message': 'Dataset file saved successfully.',
+        'filename': uploaded_file.filename,
+        'saved_to': save_path
+    })
+
 
 # API to validate selected course by means of prerequisites and schedule conflicts and to provide plan A
 # courses = ["CS101", "CS102", "CS103", "CS404", "CS201"]
@@ -60,6 +87,24 @@ def plan_b():
         'plan': plan,
         'score': score
     })
+    
+    
+# All courses api
+@app.route('/courseId', methods=['GET'])
+def get_available_courses():
+    c_id = request.get_json()['id']
+    
+    courses = load_files('sample.txt')
+    
+    asked_course = {}
+    if c_id in list(courses):
+        asked_course = courses[c_id]
+    
+
+    return jsonify({
+        'course': asked_course
+    })
+
 
 if __name__ == '__main__':
     app.run(debug=True)
