@@ -84,7 +84,7 @@ def schedule_map(file_name, selected):
             },
             .
             .
-            . all selected courses
+            . 
         ],
         tue : [...],
         .
@@ -92,8 +92,7 @@ def schedule_map(file_name, selected):
         . all 7 days
     }
 
-    - If there is no lectures on a particular day of a course insert it in the list of that day
-      in such a way it does not make a conflict with the other courses, ie, give it a null interval.
+    - If there is no lectures on a particular day of a course just leave it.
     '''
 
     courses = load_files(file_name)
@@ -111,15 +110,13 @@ def schedule_map(file_name, selected):
 
         data = courses[course_id]
         course_day = data["day"]
-        st = data["start"]
-        et = data["end"]
+        st = data["start"][0]
+        et = data["end"][0]
 
         for day in days:
 
             if day == course_day:
                 schedule[day].append({course_id: [st, et]})
-            else:
-                schedule[day].append({course_id: [None, None]})
 
     return schedule
 

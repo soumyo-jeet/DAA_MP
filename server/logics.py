@@ -109,7 +109,8 @@ def get_plan_a (selected_course_dir) :
     plan_a = []
     conflict_msgs = []
     
-    days = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
+    days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+
     for day in days:
         courses, conflicts = valid_courses(selected_course_dir[day], day)
         plan_a.extend(courses)
@@ -149,7 +150,8 @@ def get_plan_b (selected_course_dir, priorities) :
     plan_b = []
     profit = 0
     
-    days = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
+    days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+
     for day in days:
         courses = sorted(
             selected_course_dir[day],
