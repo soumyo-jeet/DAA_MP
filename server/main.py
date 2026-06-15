@@ -90,6 +90,15 @@ def plan_b():
     
     
 # All courses api
+@app.route('/courses', methods=['GET'])
+def get_available_courses():
+    courses = load_files('sample.txt')
+
+    return jsonify({
+        'course': courses
+    })
+    
+    
 @app.route('/courseId', methods=['GET'])
 def get_available_courses():
     c_id = request.get_json()['id']
@@ -104,7 +113,6 @@ def get_available_courses():
     return jsonify({
         'course': asked_course
     })
-
 
 if __name__ == '__main__':
     app.run(debug=True)
