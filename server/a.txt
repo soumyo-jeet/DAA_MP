@@ -1,0 +1,37 @@
+CourseID,CourseName,Department,Credits,Day,StartTime,EndTime,Prerequisite,EnrollmentLimit,CurrentEnrollment,Completed
+CS101,Intro to CS,CS,3,Monday,09:00,10:30,None,30,25,None
+CS102,Data Structures,CS,3,Tuesday,10:00,11:30,CS101,30,20,CS101
+CS103,Discrete Mathematics,CS,3,Wednesday,09:00,10:30,None,35,30,None
+CS201,Algorithms,CS,3,Wednesday,11:00,12:30,CS101;CS102,30,15,CS101;CS102
+CS202,Object Oriented Programming,CS,3,Thursday,10:00,11:30,CS101,30,18,CS101
+CS203,Database Systems,CS,3,Friday,09:00,10:30,CS102,30,12,None
+CS204,Computer Networks,CS,3,Monday,13:00,14:30,CS102;CS103,25,10,None
+CS301,Operating Systems,CS,3,Thursday,09:00,10:30,CS201,30,10,CS201
+CS302,Software Engineering,CS,3,Friday,11:00,12:30,CS202,30,8,None
+CS303,Compiler Design,CS,3,Monday,11:00,12:30,CS201;CS103,25,7,None
+CS304,Artificial Intelligence,CS,3,Tuesday,13:00,14:30,CS201;CS203,25,9,None
+CS305,Computer Graphics,CS,3,Wednesday,14:00,15:30,CS202;CS103,20,5,None
+CS401,Distributed Systems,CS,3,Friday,14:00,15:30,CS301;CS201,25,5,None
+CS402,Machine Learning,CS,4,Thursday,14:00,15:30,CS304;CS201,20,6,None
+CS403,Cloud Computing,CS,3,Tuesday,09:00,10:30,CS401;CS204,20,4,None
+CS404,Cybersecurity,CS,3,Wednesday,09:00,10:30,CS301;CS204,20,3,None
+CS405,Natural Language Processing,CS,3,Monday,14:00,15:30,CS402;CS304,15,2,None
+CS406,Computer Vision,CS,3,Friday,09:00,10:30,CS402;CS305,15,3,None
+MATH101,Calculus I,MATH,4,Monday,11:00,12:30,None,35,30,None
+MATH102,Calculus II,MATH,4,Tuesday,13:00,14:30,MATH101,35,25,MATH101
+MATH103,Linear Algebra,MATH,3,Wednesday,11:00,12:30,MATH101,30,20,MATH101
+MATH201,Probability and Statistics,MATH,3,Thursday,11:00,12:30,MATH102;MATH103,25,15,MATH102
+MATH202,Numerical Methods,MATH,3,Friday,13:00,14:30,MATH102;CS101,25,10,None
+MATH301,Differential Equations,MATH,3,Monday,09:00,10:30,MATH102,20,8,None
+MATH302,Graph Theory,MATH,3,Tuesday,11:00,12:30,MATH103;CS103,20,6,None
+MATH401,Optimization,MATH,4,Thursday,09:00,10:30,MATH201;CS201,15,4,None
+PHY101,Physics I,PHY,4,Tuesday,09:00,10:30,None,40,35,None
+PHY102,Physics II,PHY,4,Wednesday,13:00,14:30,PHY101;MATH101,35,28,PHY101;MATH101
+PHY201,Quantum Mechanics,PHY,3,Thursday,13:00,14:30,PHY102;MATH103,20,10,None
+PHY301,Computational Physics,PHY,3,Friday,11:00,12:30,PHY201;CS201,15,5,None
+EE101,Circuit Theory,EE,3,Monday,13:00,14:30,None,30,25,None
+EE102,Digital Logic,EE,3,Tuesday,14:00,15:30,EE101;MATH101,25,18,EE101
+EE201,Signal Processing,EE,3,Wednesday,09:00,10:30,EE102;MATH102,20,12,None
+EE202,Embedded Systems,EE,3,Thursday,09:00,10:30,EE102;CS101,20,10,None
+EE301,VLSI Design,EE,3,Friday,14:00,15:30,EE201;CS202,15,6,None
+EE302,Wireless Communication,EE,3,Monday,14:00,15:30,EE201;MATH201,15,4,None

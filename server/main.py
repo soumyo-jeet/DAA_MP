@@ -5,6 +5,16 @@ from logics import *
 from helpers import *
 
 app = Flask(__name__)
+COURSE_FILE_NAME = 'a.txt'
+FALLBACK_FILE_NAME = 'sample.txt'
+
+
+def get_course_file():
+    course_path = os.path.join(os.path.dirname(__file__), COURSE_FILE_NAME)
+    if os.path.exists(course_path):
+        return course_path
+    return os.path.join(os.path.dirname(__file__), FALLBACK_FILE_NAME)
+
 
 # API to accept a.txt from user
 @app.route('/upload', methods=['POST'])
@@ -20,9 +30,7 @@ def upload_dataset():
     if not uploaded_file.filename.lower().endswith('.txt'):
         return jsonify({'error': 'Only .txt files are allowed.'}), 400
 
-    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-    save_path = os.path.join(project_root, 'sample.txt')
-
+    save_path = os.path.join(os.path.dirname(__file__), COURSE_FILE_NAME)
     uploaded_file.save(save_path)
 
     return jsonify({
@@ -39,16 +47,37 @@ def upload_dataset():
 # get_plan_a(schedule)
 
 
-@app.route('/plan_a', methods=['GET'])
+@app.route('/plan_a', methods=['POST'])
 def plan_a():
-    selected_courses = request.get_json()
+    data = request.get_json() or {}
+    selected_courses = data.get('courses', [])
+    completed_courses = data.get('completed', [])
+
+    print("Got selected courses:", selected_courses)
+    print("Got completed courses:", completed_courses)
+
+    course_file = get_course_file()
     
-    print("Got: ", selected_courses)
-    schedule = schedule_map('sample.txt', selected_courses)
+    eligibility_result = eligibility(course_file, selected_courses, completed_courses)
+    required_course_value = eligibility_result.get("Required Course", "None")
+
+    try:
+        if isinstance(required_course_value, str) and required_course_value != "None":
+            required_course_map = json.loads(required_course_value)
+        else:
+            required_course_map = {}
+    except Exception:
+        required_course_map = {}
+
+    cancelled_courses = list(required_course_map.keys())
+    eligible_courses = [c for c in selected_courses if c not in cancelled_courses]
+    schedule = schedule_map(course_file, eligible_courses)
     plan, conflicts = get_plan_a(schedule)
+
     return jsonify({
         'plan': plan,
-        'conflicts': conflicts
+        'conflicts': conflicts,
+        'eligibility': eligibility_result
     })
     
     
@@ -92,23 +121,18 @@ def plan_b():
 # All courses api
 @app.route('/courses', methods=['GET'])
 def get_available_courses():
-    courses = load_files('sample.txt')
+    courses = load_files(get_course_file())
 
     return jsonify({
-        'course': courses
+        'courses': courses
     })
     
     
 @app.route('/courseId', methods=['GET'])
-def get_available_courses():
-    c_id = request.get_json()['id']
-    
+def get_course_by_id():
+    c_id = request.args.get('id')
     courses = load_files('sample.txt')
-    
-    asked_course = {}
-    if c_id in list(courses):
-        asked_course = courses[c_id]
-    
+    asked_course = courses.get(c_id, {})
 
     return jsonify({
         'course': asked_course
