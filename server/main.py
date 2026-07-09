@@ -16,7 +16,7 @@ def get_course_file():
         return TMP_COURSE_FILE
     return os.path.join(os.path.dirname(__file__), FALLBACK_FILE_NAME)
 
-
+# # API to accept a.txt from user
 @app.route('/upload', methods=['POST'])
 def upload_dataset():
     if 'file' not in request.files:

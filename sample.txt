@@ -1,2 +1,0 @@
-course,info
-CS101,test

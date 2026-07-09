@@ -4,7 +4,7 @@ from typing import Dict, List, Optional
 import requests
 import streamlit as st
 
-API_URL = "https://daa-mp.vercel.app/"
+API_URL = "https://daa-mp.vercel.app"
 
 
 # --------------------------------------------------------------------------- #

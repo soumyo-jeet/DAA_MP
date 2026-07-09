@@ -122,8 +122,17 @@ def get_plan_a (selected_course_dir) :
     return plan_a, conflict_msgs
 
 
-# Modified plan B as per to maximize user's desire score (DP)
-def solve (courses, priorities, id, prev_end) :
+# Modified plan B as per to maximize user's desire score (DP) with memoization
+def solve (courses, priorities, id, prev_end, memo=None) :
+    if memo is None:
+        memo = {}
+    
+    # Create cache key from id and prev_end
+    cache_key = (id, prev_end)
+    
+    if cache_key in memo:
+        return memo[cache_key]
+    
     if id >= len(courses) :
         return 0, []
 
@@ -133,16 +142,15 @@ def solve (courses, priorities, id, prev_end) :
     skip_courses = []
     
     if list(courses[id].values())[0][0] >= prev_end :
-        profit, chosen = solve(courses, priorities, id + 1, list(courses[id].values())[0][1])
+        profit, chosen = solve(courses, priorities, id + 1, list(courses[id].values())[0][1], memo)
         take = priorities[list(courses[id].keys())[0]] + profit
         take_courses = [list(courses[id].keys())[0]] + chosen
     
-    skip, skip_courses = solve(courses, priorities, id + 1, prev_end)
+    skip, skip_courses = solve(courses, priorities, id + 1, prev_end, memo)
     
-    if take > skip :
-        return take, take_courses
-    else :
-        return skip, skip_courses
+    result = (take, take_courses) if take > skip else (skip, skip_courses)
+    memo[cache_key] = result
+    return result
 
 
 
