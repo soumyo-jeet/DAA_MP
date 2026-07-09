@@ -3,20 +3,20 @@ import os
 from flask import Flask, request, jsonify
 from logics import *
 from helpers import *
+import tempfile
 
 app = Flask(__name__)
 COURSE_FILE_NAME = 'a.txt'
 FALLBACK_FILE_NAME = 'sample.txt'
+TMP_COURSE_FILE = os.path.join(tempfile.gettempdir(), "a.txt")
 
 
 def get_course_file():
-    course_path = os.path.join(os.path.dirname(__file__), COURSE_FILE_NAME)
-    if os.path.exists(course_path):
-        return course_path
+    if os.path.exists(TMP_COURSE_FILE):
+        return TMP_COURSE_FILE
     return os.path.join(os.path.dirname(__file__), FALLBACK_FILE_NAME)
 
 
-# API to accept a.txt from user
 @app.route('/upload', methods=['POST'])
 def upload_dataset():
     if 'file' not in request.files:
@@ -30,14 +30,42 @@ def upload_dataset():
     if not uploaded_file.filename.lower().endswith('.txt'):
         return jsonify({'error': 'Only .txt files are allowed.'}), 400
 
-    save_path = os.path.join(os.path.dirname(__file__), COURSE_FILE_NAME)
-    uploaded_file.save(save_path)
+    uploaded_file.save(TMP_COURSE_FILE)
 
     return jsonify({
-        'message': 'Dataset file saved successfully.',
-        'filename': uploaded_file.filename,
-        'saved_to': save_path
+        "message": "Upload successful",
+        "path": TMP_COURSE_FILE
     })
+
+# def get_course_file():
+#     course_path = os.path.join(os.path.dirname(__file__), COURSE_FILE_NAME)
+#     if os.path.exists(course_path):
+#         return course_path
+#     return os.path.join(os.path.dirname(__file__), FALLBACK_FILE_NAME)
+
+
+# # API to accept a.txt from user
+# @app.route('/upload', methods=['POST'])
+# def upload_dataset():
+#     if 'file' not in request.files:
+#         return jsonify({'error': 'No file uploaded.'}), 400
+
+#     uploaded_file = request.files['file']
+
+#     if uploaded_file.filename == '':
+#         return jsonify({'error': 'No selected file.'}), 400
+
+#     if not uploaded_file.filename.lower().endswith('.txt'):
+#         return jsonify({'error': 'Only .txt files are allowed.'}), 400
+
+#     save_path = os.path.join(os.path.dirname(__file__), COURSE_FILE_NAME)
+#     uploaded_file.save(save_path)
+
+#     return jsonify({
+#         'message': 'Dataset file saved successfully.',
+#         'filename': uploaded_file.filename,
+#         'saved_to': save_path
+#     })
 
 
 # API to validate selected course by means of prerequisites and schedule conflicts and to provide plan A
