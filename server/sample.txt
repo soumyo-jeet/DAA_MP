@@ -1,5 +1,7 @@
 CourseID,CourseName,Department,Credits,Day,StartTime,EndTime,Prerequisite,EnrollmentLimit,CurrentEnrollment,Completed
 CS101,Intro to CS,CS,3,Monday,09:00,10:30,None,30,25,None
+CS001,Intro to CS,CS,3,Monday,09:30,11:30,None,30,25,None
+CS002,Intro to CS,CS,3,Monday,09:40,10:30,None,30,25,None
 CS102,Data Structures,CS,3,Tuesday,10:00,11:30,CS101,30,20,CS101
 CS103,Discrete Mathematics,CS,3,Wednesday,09:00,10:30,None,35,30,None
 CS201,Algorithms,CS,3,Wednesday,11:00,12:30,CS101;CS102,30,15,CS101;CS102
@@ -18,6 +20,8 @@ CS404,Cybersecurity,CS,3,Wednesday,09:00,10:30,CS301;CS204,20,3,None
 CS405,Natural Language Processing,CS,3,Monday,14:00,15:30,CS402;CS304,15,2,None
 CS406,Computer Vision,CS,3,Friday,09:00,10:30,CS402;CS305,15,3,None
 MATH101,Calculus I,MATH,4,Monday,11:00,12:30,None,35,30,None
+MATH001,Calculus I,MATH,4,Monday,11:00,12:30,None,35,30,None
+MATH001,Calculus I,MATH,4,Monday,11:00,12:30,None,35,30,None
 MATH102,Calculus II,MATH,4,Tuesday,13:00,14:30,MATH101,35,25,MATH101
 MATH103,Linear Algebra,MATH,3,Wednesday,11:00,12:30,MATH101,30,20,MATH101
 MATH201,Probability and Statistics,MATH,3,Thursday,11:00,12:30,MATH102;MATH103,25,15,MATH102
